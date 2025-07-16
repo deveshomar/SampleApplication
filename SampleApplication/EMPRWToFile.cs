@@ -29,7 +29,7 @@ namespace SampleApplication
             Console.WriteLine("Person object written to file.");
         }
 
-        public void Read()
+        public static void Read()
         {
             if (File.Exists("person.json"))
             {
@@ -39,8 +39,7 @@ namespace SampleApplication
                 // Deserialize JSON to Person object
                 PersonData person = JsonSerializer.Deserialize<PersonData>(jsonString);
 
-                Console.WriteLine($"Name: {PersonData.Name}, Age: {PersonData.Age}");
-            }
+               }
             else
             {
                 Console.WriteLine("File not found.");

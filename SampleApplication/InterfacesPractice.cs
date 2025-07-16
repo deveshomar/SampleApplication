@@ -24,17 +24,17 @@ namespace SampleApplication
         dog.Speak();  // Output: Dog says: Woof!
   
     */
-    public interface I1
+    public interface InterFI1
     {
         void Show();
     }
 
-    public interface I2
+    public interface InterFI2
     {
         void Display();
     }
 
-    public class MyClass : I1, I2
+    public class MyClass : InterFI1, InterFI2
     {
         public void Show()
         {
@@ -55,26 +55,26 @@ namespace SampleApplication
 
     //Interfaces I1 and I2 with Same Method Names
 
-    public interface I1
+    public interface InterfaceI1
     {
         void Print();
     }
 
-    public interface I2
+    public interface InterfaceI2
     {
         void Print();
     }
 
-    public class MyClass : I1, I2
+    public class MyClassData : InterfaceI1, InterfaceI2
     {
         // Explicit implementation for I1.Print
-        void I1.Print()
+        void InterfaceI1.Print()
         {
             Console.WriteLine("I1 Print method");
         }
 
         // Explicit implementation for I2.Print
-        void I2.Print()
+        void InterfaceI2.Print()
         {
             Console.WriteLine("I2 Print method");
         }
@@ -82,8 +82,8 @@ namespace SampleApplication
         // Optional: public method to call either interface explicitly
         public void CallPrintMethods()
         {
-            ((I1)this).Print();
-            ((I2)this).Print();
+            ((InterfaceI1)this).Print();
+            ((InterfaceI2)this).Print();
         }
 
     }
