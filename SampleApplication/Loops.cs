@@ -15,16 +15,32 @@ namespace SampleApplication
                 Console.WriteLine(i);
             }
         }
+        public void ForLoopsEven()
+        {
+            for (int i = 2; i <= 100; i++)
+            {
+                Console.WriteLine(i);
+                i++;
+            }
+        }
         public void ReverseForLoops()
         {
-            for (int i = 5; i >= 1; i--)
+            for (int i = 100; i >= 1; i--)
             {
                 Console.WriteLine(i);
             }
         }
+        public void ReverseForLoopsEven()
+        {
+            for (int i = 100; i >= 1; i--)
+            {
+                Console.WriteLine(i);
+                i = i - 1;
+            }
+        }
         public void ForLoopsCutom()
         {
-            for (int i = 0; i <= 10; i += 2)
+            for (int i = 0; i <= 1000; i += 2)
             {
                 Console.WriteLine(i);
             }
@@ -32,6 +48,7 @@ namespace SampleApplication
         }
         public void ForLoopsArray()
         {
+            string str = "hellow works";
             string[] fruits = { "Apple", "Banana", "Mango" };
 
             for (int i = 0; i < fruits.Length; i++)
@@ -60,12 +77,15 @@ namespace SampleApplication
 
             for (int i = 0; i < numbers.Length; i++)
             {
-                sum += numbers[i];
+               // sum += numbers[i];
+                sum= sum + numbers[i];
             }
 
             Console.WriteLine($"Total sum: {sum}");
 
         }
+
+        //interview 
         public void MaxFromIntegers()
         {
             int[] nums = { 2, 9, 4, 15, 7 };
@@ -92,7 +112,10 @@ namespace SampleApplication
                 if (values[i] % 2 == 0)
                 {
                     count++;
+                    //Console.WriteLine(values[i]);
                 }
+                else
+                    Console.WriteLine(values[i]);
             }
 
             Console.WriteLine($"Even numbers count: {count}");

@@ -6,6 +6,35 @@ using System.Threading.Tasks;
 
 namespace SampleApplication
 {
+    //interview Questions
+    public class parentClass
+    {
+        protected void GetProctedMethod()
+        {
+            Console.WriteLine("Inside parentClass->GetProctedMethod");
+        }
+        public void GetpublicMethod_parentClass()
+        {
+            Console.WriteLine("Inside parentClass->GetpublicMethod_parentClass");
+        }
+    }
+    public class ChildClass:parentClass
+    {
+        public void GetpublicMethod_ChildClass()
+        {
+            Console.WriteLine("Inside ChildClass->GetpublicMethod_ChildClass");
+            GetProctedMethod();
+
+        }
+
+
+    }
+
+    //  ChildClass obj = new ChildClass();
+    // obj.GetpublicMethod_ChildClass();
+
+    // proteched meber can access in child class but not outside that class
+   // obj.GetProctedMethod();  // will show error due to protection level
     public class Account
     {
         protected decimal balance;

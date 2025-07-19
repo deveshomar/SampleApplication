@@ -16,6 +16,10 @@ namespace SampleApplication
             this.name = name;
             Console.WriteLine($"Employee constructor called. Name: {name}");
         }
+        public Employee()
+        {
+            Console.WriteLine(  "normal default construcor");
+        }
 
         public void ShowInfo()
         {
