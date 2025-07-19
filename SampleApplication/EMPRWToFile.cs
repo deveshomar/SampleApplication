@@ -15,26 +15,26 @@ namespace SampleApplication
 
     internal class EMPRWToFile
     {
-        public void Write()
+        public void Write(string jsonpath)
 
         {
-            PersonData person = new PersonData { Name = "Alice", Age = 30 };
+            PersonData person = new PersonData { Name = "Devesh666787", Age = 30 };
 
             // Serialize object to JSON string
             string jsonString = JsonSerializer.Serialize(person);
 
             // Write JSON string to file
-            File.WriteAllText("person.json", jsonString);
+            File.WriteAllText(jsonpath, jsonString);
 
             Console.WriteLine("Person object written to file.");
         }
 
-        public static void Read()
+        public static void Read(string path)
         {
-            if (File.Exists("person.json"))
+            if (File.Exists(path))
             {
                 // Read JSON string from file
-                string jsonString = File.ReadAllText("person.json");
+                string jsonString = File.ReadAllText(path);
 
                 // Deserialize JSON to Person object
                 PersonData person = JsonSerializer.Deserialize<PersonData>(jsonString);

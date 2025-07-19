@@ -8,7 +8,7 @@ namespace SampleApplication
 {
     internal class FilesIO
     {
-        public void Write()
+        public void Write(string path )
         {
             string[] lines = {
             "Hello, this is line 1.",
@@ -17,23 +17,36 @@ namespace SampleApplication
         };
 
             // Write all lines to output.txt (creates or overwrites the file)
-            File.WriteAllLines("output.txt", lines);
+            File.WriteAllLines(path, lines);
 
             Console.WriteLine("Data written to file successfully.");
         }
-        public void Delete()
+
+        public void WriteAppend(string path, string[] lines)
         {
-            if (File.Exists("file.txt"))
+           
+
+            // Write all lines to output.txt (creates or overwrites the file)
+            File.AppendAllLines(path, lines);
+
+            Console.WriteLine("Data written to file successfully.");
+        }
+        public void Delete(string path)
+        {
+            if (File.Exists(path))
             {
-                File.Delete("file.txt");
+                File.Delete(path);
                 Console.WriteLine("File deleted.");
             }
         }
-        public void Read()
+
+
+        
+        public void Read(string path)
         {
-            if (File.Exists("output.txt"))
+            if (File.Exists(path))
             {
-                string[] lines = File.ReadAllLines("output.txt");
+                string[] lines = File.ReadAllLines(path);
 
                 Console.WriteLine("Contents of the file:");
                 foreach (string line in lines)
@@ -67,5 +80,30 @@ Copy	File.Copy()	Copy file
 Move/Rename	File.Move()	Move or rename file
 StreamWriter/Reader	StreamWriter / StreamReader	Fine-grained control
 Async read/write	File.ReadAllTextAsync() / File.WriteAllTextAsync()	For async apps
+
+
+FilesIO obj = new FilesIO();
+string filepath = "C:\\Users\\admin\\source\\repos\\SampleApplication\\FilesData\\samplefile.txt";
+
+
+for(int i = 0; i <10; i++)
+{
+    string[] lines = {
+             "This is first line of content number = "+i.ToString(), 
+            "Hello, this is line 1.",
+            "This is line 2.",
+            "Writing to a file in C# is easy!",
+             "================================"
+        };
+
+    obj.WriteAppend(filepath, lines);
+
+
+}
+
+
+
+obj.Read(filepath);
+
 
  */
