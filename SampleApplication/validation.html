@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comprehensive Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    form > div {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 3px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Big Form with Multiple Validations</h2>
+  <form id="bigForm" novalidate>
+
+    <div>
+      <label for="fullName">Full Name (3-50 characters):</label>
+      <input type="text" id="fullName" name="fullName" />
+      <div class="error" id="fullNameError"></div>
+    </div>
+
+    <div>
+      <label for="age">Age (18 to 120):</label>
+      <input type="number" id="age" name="age" />
+      <div class="error" id="ageError"></div>
+    </div>
+
+    <div>
+      <label for="birthDate">Birth Date (must be past date):</label>
+      <input type="date" id="birthDate" name="birthDate" />
+      <div class="error" id="birthDateError"></div>
+    </div>
+
+    <div>
+      <label for="appointmentDate">Appointment Date (must be future date):</label>
+      <input type="date" id="appointmentDate" name="appointmentDate" />
+      <div class="error" id="appointmentDateError"></div>
+    </div>
+
+    <div>
+      <label for="email">Email (valid format):</label>
+      <input type="email" id="email" name="email" />
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div>
+      <label for="phone">Phone Number (10 digits):</label>
+      <input type="tel" id="phone" name="phone" />
+      <div class="error" id="phoneError"></div>
+    </div>
+
+    <div>
+      <label for="password">Password (min 6 chars):</label>
+      <input type="password" id="password" name="password" />
+      <div class="error" id="passwordError"></div>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" />
+      <div class="error" id="confirmPasswordError"></div>
+    </div>
+
+    <div>
+      <label for="numberOfItems">Number of Items (integer ≥ 1):</label>
+      <input type="number" id="numberOfItems" name="numberOfItems" />
+      <div class="error" id="numberOfItemsError"></div>
+    </div>
+
+    <div>
+      <label for="country">Country (select one):</label>
+      <select id="country" name="country">
+        <option value="">-- Select Country --</option>
+        <option value="usa">USA</option>
+        <option value="india">India</option>
+        <option value="uk">UK</option>
+        <option value="australia">Australia</option>
+      </select>
+      <div class="error" id="countryError"></div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('bigForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default submit for validation
+
+      // Clear previous errors
+      [...document.querySelectorAll('.error')].forEach(e => e.textContent = '');
+
+      let isValid = true;
+
+      // Full Name validation
+      const fullName = form.fullName.value.trim();
+      if (!fullName) {
+        showError('fullNameError', 'Full name is required.');
+        isValid = false;
+      } else if (fullName.length < 3 || fullName.length > 50) {
+        showError('fullNameError', 'Full name must be between 3 and 50 characters.');
+        isValid = false;
+      }
+
+      // Age validation
+      const age = parseInt(form.age.value.trim(), 10);
+      if (!form.age.value.trim()) {
+        showError('ageError', 'Age is required.');
+        isValid = false;
+      } else if (isNaN(age) || age < 18 || age > 120) {
+        showError('ageError', 'Age must be an integer between 18 and 120.');
+        isValid = false;
+      }
+
+      // Birth Date validation (must be past date)
+      const birthDate = form.birthDate.value;
+      if (!birthDate) {
+        showError('birthDateError', 'Birth date is required.');
+        isValid = false;
+      } else {
+        const birth = new Date(birthDate);
+        const today = new Date();
+        if (birth >= today) {
+          showError('birthDateError', 'Birth date must be in the past.');
+          isValid = false;
+        }
+      }
+
+      // Appointment Date validation (must be future date)
+      const appointmentDate = form.appointmentDate.value;
+      if (!appointmentDate) {
+        showError('appointmentDateError', 'Appointment date is required.');
+        isValid = false;
+      } else {
+        const appDate = new Date(appointmentDate);
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        if (appDate <= today) {
+          showError('appointmentDateError', 'Appointment date must be in the future.');
+          isValid = false;
+        }
+      }
+
+      // Email validation
+      const email = form.email.value.trim();
+      if (!email) {
+        showError('emailError', 'Email is required.');
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        showError('emailError', 'Email format is invalid.');
+        isValid = false;
+      }
+
+      // Phone validation (simple 10 digit number)
+      const phone = form.phone.value.trim();
+      if (!phone) {
+        showError('phoneError', 'Phone number is required.');
+        isValid = false;
+      } else if (!/^\d{10}$/.test(phone)) {
+        showError('phoneError', 'Phone number must be exactly 10 digits.');
+        isValid = false;
+      }
+
+      // Password validation
+      const password = form.password.value;
+      if (!password) {
+        showError('passwordError', 'Password is required.');
+        isValid = false;
+      } else if (password.length < 6) {
+        showError('passwordError', 'Password must be at least 6 characters.');
+        isValid = false;
+      }
+
+      // Confirm password validation
+      const confirmPassword = form.confirmPassword.value;
+      if (confirmPassword !== password) {
+        showError('confirmPasswordError', 'Passwords do not match.');
+        isValid = false;
+      }
+
+      // Number of items validation (integer >= 1)
+      const numItems = form.numberOfItems.value.trim();
+      if (!numItems) {
+        showError('numberOfItemsError', 'Number of items is required.');
+        isValid = false;
+      } else if (!Number.isInteger(Number(numItems)) || Number(numItems) < 1) {
+        showError('numberOfItemsError', 'Number of items must be an integer ≥ 1.');
+        isValid = false;
+      }
+
+      // Country selection
+      const country = form.country.value;
+      if (!country) {
+        showError('countryError', 'Please select a country.');
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert("Form submitted successfully!");
+        form.reset();
+      }
+    });
+
+    function showError(id, message) {
+      document.getElementById(id).textContent = message;
+    }
+
+    function validateEmail(email) {
+      // Simple email regex
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+  </script>
+
+</body>
+</html>

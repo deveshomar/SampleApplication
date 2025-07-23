@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee CRUD Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #999;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .btn {
+      margin: 3px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    #editModal {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+
+    #modalContent {
+      background: #fff;
+      width: 300px;
+      padding: 20px;
+      margin: 100px auto;
+      border-radius: 5px;
+    }
+
+    #modalContent input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Employee Management</h2>
+
+  <h3>Add Employee</h3>
+  <div>
+    <div class="form-group">
+      <label>Emp ID:</label>
+      <input type="text" id="empId">
+    </div>
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" id="empName">
+    </div>
+    <div class="form-group">
+      <label>Department:</label>
+      <input type="text" id="empDept">
+    </div>
+    <button class="btn" onclick="addEmployee()">Add Employee</button>
+  </div>
+
+  <h3>Employee Table</h3>
+  <table id="employeeTable">
+    <thead>
+      <tr>
+        <th>Emp ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dynamic rows here -->
+    </tbody>
+  </table>
+
+  <!-- Edit Modal -->
+  <div id="editModal">
+    <div id="modalContent">
+      <h3>Edit Employee</h3>
+      <input type="text" id="editEmpId" placeholder="Emp ID" disabled>
+      <input type="text" id="editEmpName" placeholder="Name">
+      <input type="text" id="editEmpDept" placeholder="Department">
+      <button class="btn" onclick="updateEmployee()">Update</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedRow = null;
+
+    function addEmployee() {
+      const id = document.getElementById('empId').value.trim();
+      const name = document.getElementById('empName').value.trim();
+      const dept = document.getElementById('empDept').value.trim();
+
+      if (!id || !name || !dept) {
+        alert("All fields are required!");
+        return;
+      }
+
+      const table = document.getElementById('employeeTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      newRow.insertCell(0).innerText = id;
+      newRow.insertCell(1).innerText = name;
+      newRow.insertCell(2).innerText = dept;
+
+      const actionCell = newRow.insertCell(3);
+      actionCell.innerHTML = `
+        <button class="btn" onclick="alertEmpId(this)">Read</button>
+        <button class="btn" onclick="editRow(this)">Edit</button>
+        <button class="btn" onclick="deleteRow(this)">Delete</button>
+      `;
+
+      // Reset form
+      document.getElementById('empId').value = '';
+      document.getElementById('empName').value = '';
+      document.getElementById('empDept').value = '';
+    }
+
+    function alertEmpId(button) {
+      const row = button.parentElement.parentElement;
+      const empId = row.cells[0].innerText;
+      alert("Emp ID: " + empId);
+    }
+
+    function deleteRow(button) {
+      if (confirm("Are you sure to delete this employee?")) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+      }
+    }
+
+    function editRow(button) {
+      selectedRow = button.parentElement.parentElement;
+      document.getElementById('editEmpId').value = selectedRow.cells[0].innerText;
+      document.getElementById('editEmpName').value = selectedRow.cells[1].innerText;
+      document.getElementById('editEmpDept').value = selectedRow.cells[2].innerText;
+
+      document.getElementById('editModal').style.display = 'block';
+    }
+
+    function updateEmployee() {
+      const name = document.getElementById('editEmpName').value.trim();
+      const dept = document.getElementById('editEmpDept').value.trim();
+
+      if (!name || !dept) {
+        alert("Name and Department are required!");
+        return;
+      }
+
+      selectedRow.cells[1].innerText = name;
+      selectedRow.cells[2].innerText = dept;
+
+      closeModal();
+    }
+
+    function closeModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+
+    // Optional: Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('editModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

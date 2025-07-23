@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enhanced Teaching Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .no-border th, .no-border td, .no-border {
+            border: none;
+        }
+
+        .btn {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        #output, #cellOutput {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>1. Table with Data & Toggle Borders</h2>
+    <table id="dataTable" onclick="readCellValue(event)">
+        <thead>
+            <tr><th>Name</th><th>Age</th><th>Country</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Alice</td><td>25</td><td>USA</td></tr>
+            <tr><td>Bob</td><td>30</td><td>Canada</td></tr>
+            <tr><td>Charlie</td><td>28</td><td>India</td></tr>
+        </tbody>
+    </table>
+    <button class="btn" onclick="toggleBorders()">Toggle Table Borders</button>
+    <div id="cellOutput"></div>
+
+    <hr>
+
+    <h2>2. State & City Dropdown (Show/Hide Example)</h2>
+    <button class="btn" onclick="toggleVisibility('dropdownSection')">Show/Hide Dropdowns</button>
+    <div id="dropdownSection">
+        <label for="stateSelect">State:</label>
+        <select id="stateSelect" onchange="populateCities()">
+            <option value="">--Select State--</option>
+            <option value="California">California</option>
+            <option value="Texas">Texas</option>
+            <option value="Maharashtra">Maharashtra</option>
+        </select>
+
+        <label for="citySelect">City:</label>
+        <select id="citySelect">
+            <option value="">--Select City--</option>
+        </select>
+    </div>
+
+    <hr>
+
+    <h2>3. Textbox with Validation</h2>
+    <button class="btn" onclick="toggleVisibility('textSection')">Show/Hide Textbox</button>
+    <div id="textSection">
+        <input type="text" id="textInput" placeholder="Enter something...">
+        <button class="btn" onclick="validateInput()">Read & Validate</button>
+        <div id="errorMsg" class="error"></div>
+        <div id="output"></div>
+    </div>
+
+    <hr>
+
+    <h2>4. Background Color Buttons</h2>
+    <button class="btn" style="background-color: red; color: white;" onclick="changeBg('red')">Red</button>
+    <button class="btn" style="background-color: blue; color: white;" onclick="changeBg('blue')">Blue</button>
+    <button class="btn" style="background-color: green; color: white;" onclick="changeBg('green')">Green</button>
+    <button class="btn" style="background-color: white;" onclick="changeBg('white')">Reset</button>
+
+    <script>
+        // Toggle table borders
+        function toggleBorders() {
+            const table = document.getElementById('dataTable');
+            table.classList.toggle('no-border');
+        }
+
+        // City Dropdown Population
+        const cityData = {
+            'California': ['Los Angeles', 'San Francisco', 'San Diego'],
+            'Texas': ['Houston', 'Dallas', 'Austin'],
+            'Maharashtra': ['Mumbai', 'Pune', 'Nagpur']
+        };
+
+        function populateCities() {
+            const state = document.getElementById('stateSelect').value;
+            const citySelect = document.getElementById('citySelect');
+            citySelect.innerHTML = '<option value="">--Select City--</option>';
+
+            if (state && cityData[state]) {
+                cityData[state].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.text = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+
+        // Toggle visibility of sections
+        function toggleVisibility(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        // Validate and read input
+        function validateInput() {
+            const input = document.getElementById('textInput').value.trim();
+            const error = document.getElementById('errorMsg');
+            const output = document.getElementById('output');
+
+            if (input === '') {
+                error.textContent = 'Input cannot be empty.';
+                output.textContent = '';
+            } else if (input.length < 3) {
+                error.textContent = 'Input must be at least 3 characters long.';
+                output.textContent = '';
+            } else {
+                error.textContent = '';
+                output.textContent = 'You entered: ' + input;
+            }
+        }
+
+        // Change background color
+        function changeBg(color) {
+            document.body.style.backgroundColor = color;
+        }
+
+        // Read table cell value
+        function readCellValue(event) {
+            if (event.target.tagName === 'TD') {
+                const value = event.target.innerText;
+                document.getElementById('cellOutput').textContent = 'Cell clicked: ' + value;
+            }
+        }
+    </script>
+
+</body>
+</html>
