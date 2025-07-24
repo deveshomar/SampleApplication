@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dropdown Change Event Example</title>
+</head>
+<body>
+
+<h2>Select your favorite fruit:</h2>
+
+<select id="fruitSelect">
+  <option value="" disabled selected>Select a fruit</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+  <option value="mango">Mango</option>
+</select>
+
+<script>
+  const dropdown = document.getElementById('fruitSelect');
+
+  dropdown.addEventListener('change', function() {
+    alert('You selected: ' + this.value);
+  });
+</script>
+
+</body>
+</html>

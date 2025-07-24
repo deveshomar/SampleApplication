@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Slide Show Panel Example</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll when sidebar open */
+  }
+
+  /* The sidebar panel */
+  #sidePanel {
+    height: 100vh; /* Full height */
+    width: 0; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    overflow-x: hidden;
+    transition: 0.5s; /* Smooth slide */
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+  }
+
+  #sidePanel.open {
+    width: 300px; /* Width when visible */
+  }
+
+  #sidePanel h2 {
+    margin-top: 0;
+  }
+
+  /* Button to toggle the panel */
+  #toggleBtn {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  /* Main content */
+  #mainContent {
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<button id="toggleBtn">Show Side Panel</button>
+
+<div id="sidePanel">
+  <h2>Side Panel Content</h2>
+  <p>This is some content inside the sliding side panel. You can put anything here — text, links, images, etc.</p>
+  <p>Click the button again to close this panel.</p>
+</div>
+
+<div id="mainContent">
+  <h1>Welcome to the page</h1>
+  <p>Click the button to show or hide the side panel.</p>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggleBtn');
+  const sidePanel = document.getElementById('sidePanel');
+
+  toggleBtn.addEventListener('click', () => {
+    sidePanel.classList.toggle('open');
+    toggleBtn.textContent = sidePanel.classList.contains('open') ? 'Hide Side Panel' : 'Show Side Panel';
+  });
+</script>
+
+</body>
+</html>

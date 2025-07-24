@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Form Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .checkbox-container {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .checkbox-container input {
+      margin-right: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Registration Form</h2>
+
+  <form id="registrationForm">
+
+    <label for="state">State:</label>
+    <select id="state" name="state" required>
+      <option value="" selected disabled>Select a State</option>
+      <option value="California">California</option>
+      <option value="Texas">Texas</option>
+      <option value="NewYork">New York</option>
+    </select>
+
+    <label for="city">City:</label>
+    <select id="city" name="city" disabled required>
+      <option value="" selected disabled>Select a City</option>
+    </select>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="0" max="150" required />
+
+    <div class="checkbox-container">
+      <input type="checkbox" id="subscribe" name="subscribe" />
+      <label for="subscribe" style="margin:0;">Subscribe to newsletter?</label>
+    </div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter email" disabled required />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+    const ageInput = document.getElementById('age');
+    const subscribeCheckbox = document.getElementById('subscribe');
+    const emailInput = document.getElementById('email');
+    const form = document.getElementById('registrationForm');
+
+    // Cities by state
+    const citiesByState = {
+      California: ['Los Angeles', 'San Francisco', 'San Diego'],
+      Texas: ['Houston', 'Dallas', 'Austin'],
+      NewYork: ['New York City', 'Buffalo', 'Rochester']
+    };
+
+    // Enable city dropdown based on state selection
+    stateSelect.addEventListener('change', () => {
+      const selectedState = stateSelect.value;
+      if (!selectedState) {
+        citySelect.innerHTML = '<option value="" disabled selected>Select a City</option>';
+        citySelect.disabled = true;
+        return;
+      }
+      // Populate city options
+      const cities = citiesByState[selectedState];
+      citySelect.innerHTML = '<option value="" disabled selected>Select a City</option>';
+      cities.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        option.textContent = city;
+        citySelect.appendChild(option);
+      });
+      citySelect.disabled = false;
+    });
+
+    // Age validation > 100 alert
+    ageInput.addEventListener('input', () => {
+      const age = parseInt(ageInput.value, 10);
+      if (!isNaN(age) && age > 100) {
+        alert('Age cannot be greater than 100!');
+        ageInput.value = '';  // Reset invalid age
+      }
+    });
+
+    // Enable/disable email based on checkbox
+    subscribeCheckbox.addEventListener('change', () => {
+      emailInput.disabled = !subscribeCheckbox.checked;
+      if (!subscribeCheckbox.checked) {
+        emailInput.value = '';
+      }
+    });
+
+    // Form submission validation
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent default submit
+
+      if (!stateSelect.value) {
+        alert('Please select a state.');
+        return;
+      }
+
+      if (!citySelect.value) {
+        alert('Please select a city.');
+        return;
+      }
+
+      const age = parseInt(ageInput.value, 10);
+      if (isNaN(age) || age <= 0) {
+        alert('Please enter a valid age.');
+        return;
+      }
+
+      if (age > 100) {
+        alert('Age cannot be greater than 100!');
+        return;
+      }
+
+      if (subscribeCheckbox.checked && !emailInput.value) {
+        alert('Please enter your email to subscribe.');
+        return;
+      }
+
+      alert('Form submitted successfully!');
+
+      // Reset form (optional)
+      form.reset();
+      citySelect.disabled = true;
+      emailInput.disabled = true;
+    });
+  </script>
+
+</body>
+</html>

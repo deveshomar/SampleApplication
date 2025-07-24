@@ -8,6 +8,21 @@ namespace SampleApplication
 {
     internal class MathTableCsharpProgram
     {
+
+
+
+        public void PrintTableforNumeer(int number)
+        {
+            Console.WriteLine($"Multiplication Table for {number}:\n");
+            for (int i = 1; i <= 10; i++) // Multiplier
+            {
+                Console.WriteLine($"{number} x {i} = {number * i}");
+            }
+            Console.WriteLine("Done!");
+        }
+
+
+
         public void PrintTable()
         {
             Console.WriteLine("Multiplication Tables from 1 to 10\n");
@@ -28,3 +43,17 @@ namespace SampleApplication
         }
     }
 }
+/*
+ * 
+
+MathTableCsharpProgram objt = new MathTableCsharpProgram();
+
+for (int i = 0; i < 100; i++)
+{
+ 
+    Console.WriteLine("=========Table of ="+i.ToString());
+    objt.PrintTableforNumeer(i);
+    Console.WriteLine(  "===============================");
+}
+
+ */

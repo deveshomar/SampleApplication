@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Events Demo</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    button, input, div {
+      margin: 10px 0;
+    }
+    #eventBox {
+      width: 200px;
+      height: 100px;
+      background-color: lightblue;
+      line-height: 100px;
+      text-align: center;
+      border: 2px solid blue;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🖱️ Mouse Events</h2>
+
+  <button onclick="handleClick()">Click Me</button>
+  <button ondblclick="handleDoubleClick()">Double Click Me</button>
+
+  <div id="eventBox"
+       onmouseover="handleMouseOver()"
+       onmouseout="handleMouseOut()"
+       onmousedown="handleMouseDown()"
+       onmouseup="handleMouseUp()">
+    Hover or Click Here
+  </div>
+
+  <h2>⌨️ Keyboard Events</h2>
+
+  <input type="text" 
+         placeholder="Type something"
+         onkeydown="handleKeyDown(event)"
+         onkeyup="handleKeyUp(event)"
+         onkeypress="handleKeyPress(event)" />
+
+  <h2>🧪 Change and Focus Events</h2>
+
+  <input type="text" id="changeInput" onfocus="handleFocus()" onblur="handleBlur()" onchange="handleChange()" placeholder="Focus / change me" />
+
+  <h2>📋 Output</h2>
+  <div id="output" style="white-space: pre; background: #f0f0f0; padding: 10px;"></div>
+
+  <script>
+    const output = document.getElementById('output');
+
+    function log(message) {
+      output.textContent += message + '\n';
+    }
+
+    // Click
+    function handleClick() {
+      log("✅ Button clicked");
+    }
+
+    // Double Click
+    function handleDoubleClick() {
+      log("✅ Button double-clicked");
+    }
+
+    // Mouse Events
+    function handleMouseOver() {
+      log("🖱️ Mouse over the box");
+    }
+
+    function handleMouseOut() {
+      log("🖱️ Mouse left the box");
+    }
+
+    function handleMouseDown() {
+      log("🖱️ Mouse button down on the box");
+    }
+
+    function handleMouseUp() {
+      log("🖱️ Mouse button released on the box");
+    }
+
+    // Keyboard Events
+    function handleKeyDown(e) {
+      log(`⌨️ Key down: ${e.key}`);
+    }
+
+    function handleKeyUp(e) {
+      log(`⌨️ Key up: ${e.key}`);
+    }
+
+    function handleKeyPress(e) {
+      log(`⌨️ Key pressed (keypress): ${e.key}`);
+    }
+
+    // Input Events
+    function handleFocus() {
+      log("📌 Input focused");
+    }
+
+    function handleBlur() {
+      log("📴 Input blurred");
+    }
+
+    function handleChange() {
+      const value = document.getElementById('changeInput').value;
+      log(`📝 Input changed to: ${value}`);
+    }
+  </script>
+
+</body>
+</html>

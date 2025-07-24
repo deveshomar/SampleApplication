@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>innerHTML and Dynamic Value Setting Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    section {
+      margin-bottom: 30px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>innerHTML and Dynamic Value Setting Examples</h1>
+
+  <!-- Example 1: Set innerHTML of a div -->
+  <section>
+    <h3>Example 1: Set innerHTML of a div</h3>
+    <div id="contentDiv">Original content here.</div>
+    <button onclick="setInnerHTML()">Change Content</button>
+  </section>
+
+  <!-- Example 2: Append HTML dynamically -->
+  <section>
+    <h3>Example 2: Append HTML dynamically</h3>
+    <ul id="list">
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <button onclick="appendListItem()">Add Item</button>
+  </section>
+
+  <!-- Example 3: Setting value of input -->
+  <section>
+    <h3>Example 3: Set value of input field</h3>
+    <input type="text" id="nameInput" placeholder="Type name here" />
+    <button onclick="setInputValue()">Set Default Name</button>
+  </section>
+
+  <!-- Example 4: Update multiple elements -->
+  <section>
+    <h3>Example 4: Update multiple elements using innerHTML and values</h3>
+    <p id="para1">Paragraph 1</p>
+    <p id="para2">Paragraph 2</p>
+    <input type="number" id="numInput" value="10" />
+    <button onclick="updateMultiple()">Update All</button>
+  </section>
+
+  <script>
+    // Example 1: Replace entire innerHTML content
+    function setInnerHTML() {
+      const div = document.getElementById('contentDiv');
+      div.innerHTML = '<strong style="color:green;">Content changed!</strong> Now with <em>HTML formatting</em>.';
+    }
+
+    // Example 2: Append new list item dynamically
+    function appendListItem() {
+      const ul = document.getElementById('list');
+      const newItemIndex = ul.children.length + 1;
+      ul.innerHTML += `<li>Item ${newItemIndex}</li>`;  // Append new list item
+    }
+
+    // Example 3: Set input value programmatically
+    function setInputValue() {
+      const input = document.getElementById('nameInput');
+      input.value = 'John Doe';
+    }
+
+    // Example 4: Update multiple elements with innerHTML and values
+    function updateMultiple() {
+      document.getElementById('para1').innerHTML = 'Paragraph 1 <strong>updated!</strong>';
+      document.getElementById('para2').innerHTML = 'Paragraph 2 <em>also updated!</em>';
+
+      const numInput = document.getElementById('numInput');
+      const currentValue = parseInt(numInput.value, 10) || 0;
+      numInput.value = currentValue + 5;  // Increment value by 5
+    }
+  </script>
+
+</body>
+</html>

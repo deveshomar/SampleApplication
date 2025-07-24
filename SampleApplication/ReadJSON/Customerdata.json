@@ -1,0 +1,6 @@
+{
+  "CustomerId": 101,
+  "Name": "John Doe",
+  "Email": "john.doe@example.com",
+  "IsActive": true
+}

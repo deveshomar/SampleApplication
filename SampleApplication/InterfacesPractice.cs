@@ -103,3 +103,48 @@ namespace SampleApplication
 }
 
 
+/*
+ 
+ 
+
+
+//
+//{ 
+//IReport objP = ReportGenerationFactory.CreateReport("HTML", "PDF Report..generation");
+//objP.Generate();
+
+
+//}
+
+//IReport objP =  ReportGenerationFactory.CreateReport("PDF", "PDF Report..generation");
+//objP.Generate();
+
+//IReport objW = ReportGenerationFactory.CreateReport("Word", "Word Report..generation");
+//objW.Generate();
+
+//IReport objE = ReportGenerationFactory.CreateReport("EXCEL", "EXCEL Report..generation");
+//objE.Generate();
+
+
+
+
+
+//WordReport report = new WordReport("Monthly Sales Report");
+//report.Generate();
+
+//PdfReport pdf = new PdfReport("Monthly Sales Report");
+//pdf.Generate();
+
+//// Using the interface IReport to generate reports  
+//IReport ireport = new WordReport("Monthly Sales Report");
+//ireport.Generate();
+
+//IReport ipdf = new PdfReport("Monthly Sales Report");
+//ipdf.Generate();
+
+
+
+
+//ReportService.PrintReport(pdf);
+//ReportService.PrintReport(report); 
+ */
