@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="DESIGN\" />
+    <Folder Include="NugetPack\" />
   </ItemGroup>
 
 </Project>
