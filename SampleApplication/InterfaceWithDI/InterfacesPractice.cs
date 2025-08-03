@@ -47,12 +47,14 @@ namespace SampleApplication.InterfaceWithDI
         }
     }
     /*
-     MyClass obj = new MyClass();
+        MyClass obj = new MyClass();
         obj.Show();      // Output: I1 Show method implementation
         obj.Display();   // Output: I2 Display method implementation
      */
 
 
+
+    //Interview important
     //Interfaces I1 and I2 with Same Method Names
 
     public interface InterfaceI1
@@ -85,7 +87,6 @@ namespace SampleApplication.InterfaceWithDI
             ((InterfaceI1)this).Print();
             ((InterfaceI2)this).Print();
         }
-
     }
     /*
         *MyClass obj = new MyClass();
