@@ -82,6 +82,7 @@ namespace SampleApplication.InterfaceWithDI
 
         public void Generate()
         {
+            //logic
              Console.WriteLine($"Generating Word Report: {Title}");       
             // throw new NotImplementedException();
         }
@@ -99,7 +100,7 @@ namespace SampleApplication.InterfaceWithDI
         }
 
         public void Generate()
-        {
+        {//  loggic
             Console.WriteLine($"Generating PDF Report: {Title}");
         }
     }
@@ -115,6 +116,7 @@ namespace SampleApplication.InterfaceWithDI
 
         public void Generate()
         {
+            //logic
             Console.WriteLine($"Generating HTMLReport Report: {Title}");
         }
     }
@@ -149,8 +151,8 @@ public static class ReportService
         Console.WriteLine($"[INFO] Report generated: {report.Title}\n");
     }
 }
-/*
- 
+
+ /*
 IReport pdf = new PdfReport("Monthly Sales");
         IReport word = new WordReport("Employee Summary");
 

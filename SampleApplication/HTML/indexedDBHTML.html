@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IndexedDB Demo</title>
+</head>
+<body>
+    <h1>IndexedDB Read/Write Example</h1>
+
+    <input type="text" id="dataInput" placeholder="Enter some text" />
+    <button onclick="saveData()">Save Data</button>
+    <button onclick="loadData()">Load Data</button>
+
+    <p id="output"></p>
+
+    <script>
+        // ==== IndexedDB Script Begins ====
+
+        function openDatabase() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open("MyDatabase", 1);
+
+                request.onupgradeneeded = function(event) {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains("MyStore")) {
+                        db.createObjectStore("MyStore", { keyPath: "id" });
+                    }
+                };
+
+                request.onsuccess = function(event) {
+                    resolve(event.target.result);
+                };
+
+                request.onerror = function(event) {
+                    reject("Database error: " + event.target.errorCode);
+                };
+            });
+        }
+
+        async function writeData(id, value) {
+            const db = await openDatabase();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction("MyStore", "readwrite");
+                const store = transaction.objectStore("MyStore");
+
+                const request = store.put({ id: id, value: value });
+
+                request.onsuccess = function() {
+                    console.log("Data saved:", { id, value });
+                    resolve();
+                };
+
+                request.onerror = function(event) {
+                    reject("Write error: " + event.target.errorCode);
+                };
+            });
+        }
+
+        async function readData(id) {
+            const db = await openDatabase();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction("MyStore", "readonly");
+                const store = transaction.objectStore("MyStore");
+
+                const request = store.get(id);
+
+                request.onsuccess = function(event) {
+                    resolve(event.target.result || null);
+                };
+
+                request.onerror = function(event) {
+                    reject("Read error: " + event.target.errorCode);
+                };
+            });
+        }
+
+        // ==== UI Button Handlers ====
+
+        function saveData() {
+            const input = document.getElementById("dataInput").value;
+            writeData("user1", input).then(() => {
+                document.getElementById("output").textContent = "Data saved!";
+            });
+        }
+
+        function loadData() {
+            readData("user1").then(data => {
+                const output = document.getElementById("output");
+                if (data) {
+                    output.textContent = "Loaded: " + data.value;
+                } else {
+                    output.textContent = "No data found.";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
